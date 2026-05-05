@@ -1,13 +1,14 @@
-// Elementos
+//Elementos
 const picker = document.getElementById("colorPicker");
+const materialSelect = document.getElementById("material");
+
 const sphere = document.getElementById("sphere");
 const shadow = document.getElementById("colorshadow");
 
-// posição da luz
 let lightX = 0.5;
 let lightY = 0.2;
 
-// Utilidades de cor
+//Utilidades de cor
 function setColor(id, color){
     const el = document.getElementById(id);
     if(el) el.style.background = color;
@@ -70,29 +71,17 @@ function HSLToHex(c){
     return "#" + toHex(r) + toHex(g) + toHex(b);
 }
 
-// Gerador de paleta
+//Paleta de cores
 function makeHighlight(c){
-    return {
-        h: c.h - 12,
-        s: c.s * 0.9,
-        l: Math.min(1, c.l + 0.22)
-    }
+    return { h: c.h - 12, s: c.s * 0.9, l: Math.min(1, c.l + 0.22) };
 }
 
 function makeShadow(c){
-    return {
-        h: c.h + 18,
-        s: Math.min(1, c.s * 1.1),
-        l: Math.max(0, c.l - 0.22)
-    }
+    return { h: c.h + 18, s: Math.min(1, c.s * 1.1), l: Math.max(0, c.l - 0.22) };
 }
 
 function makeDeepShadow(c){
-    return {
-        h: c.h + 28,
-        s: Math.min(1, c.s * 1.2),
-        l: Math.max(0, c.l - 0.40)
-    }
+    return { h: c.h + 28, s: Math.min(1, c.s * 1.2), l: Math.max(0, c.l - 0.40) };
 }
 
 function getPaletteColors(hex){
@@ -106,33 +95,98 @@ function getPaletteColors(hex){
     };
 }
 
-// Render da esfera
+//Texturas
+function getMaterialBackground(colors, lightPosX, lightPosY){
+
+    const mat = materialSelect.value;
+
+    switch(mat){
+
+        case "metal":
+            return `
+                radial-gradient(circle at ${lightPosX}% ${lightPosY}%,
+                    rgba(255,255,255,0.95) 0%,
+                    rgba(255,255,255,0.4) 8%,
+                    rgba(255,255,255,0.0) 20%),
+
+                radial-gradient(circle at ${lightPosX}% ${lightPosY}%,
+                    ${colors.highlight} 0%,
+                    ${colors.base} 25%,
+                    ${colors.shadow} 60%,
+                    ${colors.deepShadow} 100%),
+
+                linear-gradient(
+                    120deg,
+                    ${colors.highlight},
+                    ${colors.shadow},
+                    ${colors.highlight},
+                    ${colors.deepShadow}
+                )
+            `;
+
+        case "rough":
+            return `
+                radial-gradient(circle at ${lightPosX}% ${lightPosY}%,
+                    ${colors.highlight},
+                    ${colors.base},
+                    ${colors.shadow},
+                    ${colors.deepShadow}),
+                repeating-radial-gradient(
+                    circle,
+                    rgba(0,0,0,0.05) 0px,
+                    rgba(0,0,0,0.05) 2px,
+                    transparent 3px
+                )
+            `;
+
+        case "fabric":
+            return `
+                radial-gradient(circle at ${lightPosX}% ${lightPosY}%,
+                    ${colors.highlight},
+                    ${colors.base},
+                    ${colors.shadow}),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(0,0,0,0.05) 0px,
+                    rgba(0,0,0,0.05) 2px,
+                    transparent 2px,
+                    transparent 4px
+                )
+            `;
+
+        default: // plastic
+            return `
+                radial-gradient(circle at ${lightPosX}% ${lightPosY}%,
+                    rgba(255,255,255,0.8) 0%,
+                    rgba(255,255,255,0.0) 20%),
+                radial-gradient(circle at ${lightPosX}% ${lightPosY}%,
+                    ${colors.highlight},
+                    ${colors.base},
+                    ${colors.shadow},
+                    ${colors.deepShadow})
+            `;
+    }
+}
+
+//Render
 function updateSphere(colors){
 
     const lightPosX = lightX * 100;
     const lightPosY = lightY * 100;
 
-    sphere.style.background =
-        "radial-gradient(circle at " +
-        lightPosX + "% " + lightPosY + "%, " +
-        colors.highlight + " 0%, " +
-        colors.base + " 35%, " +
-        colors.shadow + " 75%, " +
-        colors.deepShadow + " 89%)";
+    sphere.style.background = getMaterialBackground(colors, lightPosX, lightPosY);
 
-    // sombra no chão
-    const shadowOffsetX = (lightX - 0.5) * -120;
-    const shadowOffsetY = (lightY - 0.5) * -60;
+    const shadowOffsetX = (lightX - 0.5) * 120;
+    const shadowOffsetY = (lightY - 0.5) * 60;
 
     shadow.style.transform =
-        "translate(" + shadowOffsetX + "px," + shadowOffsetY + "px) scale(1.2)";
+        `translate(${shadowOffsetX}px, ${shadowOffsetY}px) scale(1.2)`;
 
     shadow.style.opacity = 0.4 + (lightY * 0.4);
 }
 
 function updateAll(){
-    const hex = picker.value;
-    const colors = getPaletteColors(hex);
+    const colors = getPaletteColors(picker.value);
 
     // paleta
     setColor("highlight", colors.highlight);
@@ -144,10 +198,11 @@ function updateAll(){
     updateSphere(colors);
 }
 
-// Eventos
+//Eventos
 picker.addEventListener("input", updateAll);
+materialSelect.addEventListener("change", updateAll);
 
-document.addEventListener("mousemove", function (e) {
+document.addEventListener("mousemove", (e)=>{
     lightX = e.clientX / window.innerWidth;
     lightY = e.clientY / window.innerHeight;
     updateAll();
