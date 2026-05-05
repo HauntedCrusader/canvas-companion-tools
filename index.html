@@ -1,47 +1,28 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <meta charset="UTF-8">
-    <title>Canvas Companion Tools</title>
-    <style>
-
-    body{
-        font-family: sans-serif;
-        background:#1e1e1e;
-        color:white;
-        text-align:center;
-    }
-
-    .palette{
-        display:flex;
-        justify-content:center;
-        gap:15px;
-        margin-top:30px;
-    }
-
-    .box{
-        width:120px;
-        height:120px;
-        border-radius:12px;
-        border:2px solid #444;
-    }
-
-    </style>
+        <meta charset="UTF-8">
+        <title>Canvas Companion Tools</title>
+        <link rel="stylesheet" href="style.css">
     </head>
 
-        <body>
-
+    <body>
         <h1>Estudo de Luz e Sombra</h1>
 
-        <input type="color" id="colorPicker" value="#ff8844">
+        <input type="color" id="colorPicker" value="#0541ff">
 
         <div class="palette">
             <div class="box" id="highlight"></div>
             <div class="box" id="base"></div>
-            <div class="box" id="shadow"></div>
+            <div class="box" id="paletteshadow"></div>
             <div class="box" id="deepShadow"></div>
         </div>
 
-        <script src="script.js"></script>
+        <div class="scene">
+            <div id="sphere"></div>
+            <div id="colorshadow"></div>
+        </div>
+
+        <script src="scripts/main.js"></script>
     </body>
 </html>

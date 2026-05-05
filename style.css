@@ -1,0 +1,51 @@
+body{
+    font-family: sans-serif;
+    background:#1e1e1e;
+    color:white;
+    text-align:center;
+}
+
+.palette{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin-top:30px;
+}
+
+.box{
+    width:120px;
+    height:120px;
+    border-radius:12px;
+    border:2px solid #444;
+}
+
+.scene{
+    position:relative;
+    width:400px;
+    height:400px;
+    margin:40px auto;
+}
+
+#sphere{
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    position:absolute;
+    left:75px;
+    top:40px;
+    transition:background 0.3s;
+}
+
+/* sombra no chão */
+#colorshadow{
+    position:absolute;
+    width:260px;
+    height:70px;
+    background:radial-gradient(ellipse at center,
+    rgba(0,0,0,0.45) 0%,
+    rgba(0,0,0,0.15) 40%,
+    rgba(0,0,0,0.0) 70%);
+    bottom:10px;
+    left:70px;
+    filter:blur(6px);
+}
