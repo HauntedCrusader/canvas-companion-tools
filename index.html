@@ -7,28 +7,104 @@
     </head>
 
     <body>
-        <h1>Estudo de Luz e Sombra</h1>
+        <header>
+            <h1>Canvas Companion Tools</h1>
+            <div class="controls">
+                <input type="color" id="colorPicker" value="#0541ff">
+                <select id="material">
+                    <option value="plastic">Plástico</option>
+                    <option value="metal">Metal</option>
+                    <option value="rough">Rugoso</option>
+                    <option value="fabric">Tecido</option>
+                </select>
+            </div>
+        </header>
 
-        <input type="color" id="colorPicker" value="#0541ff">
+        <div class="app-layout">
 
-        <div class="palette">
-            <div class="box" id="highlight"></div>
-            <div class="box" id="base"></div>
-            <div class="box" id="paletteshadow"></div>
-            <div class="box" id="deepShadow"></div>
+            <!--Coluna esquerda: paletas-->
+            <div class="col-palettes">
+
+                <div class="palette-section">
+                    <h2>Luz &amp; Sombra</h2>
+                    <p class="palette-desc">Variações de brilho e escuridão da cor base.</p>
+                    <div class="ls-sliders">
+                        <div class="slider-row">
+                            <label>Matiz</label>
+                            <div class="slider-track hue-track">
+                                <input type="range" id="hueShiftSlider" min="-10" max="10" step="0.1" value="1.0">
+                            </div>
+                            <span class="slider-val" id="hueShiftVal">+1.0×</span>
+                        </div>
+                        <div class="slider-row">
+                            <label>Saturação</label>
+                            <div class="slider-track sat-track">
+                                <input type="range" id="satShiftSlider" min="-10" max="10" step="0.1" value="1.0">
+                            </div>
+                            <span class="slider-val" id="satShiftVal">+1.0×</span>
+                        </div>
+                    </div>
+                    <div class="palette">
+                        <div class="color-card">
+                            <div class="box" id="highlight"></div>
+                            <span class="color-name">Luz</span>
+                            <span class="hex-label" id="highlight-hex">#000000</span>
+                        </div>
+                        <div class="color-card">
+                            <div class="box" id="base"></div>
+                            <span class="color-name">Base</span>
+                            <span class="hex-label" id="base-hex">#000000</span>
+                        </div>
+                        <div class="color-card">
+                            <div class="box" id="paletteshadow"></div>
+                            <span class="color-name">Sombra</span>
+                            <span class="hex-label" id="paletteshadow-hex">#000000</span>
+                        </div>
+                        <div class="color-card">
+                            <div class="box" id="deepShadow"></div>
+                            <span class="color-name">Sombra Profunda</span>
+                            <span class="hex-label" id="deepShadow-hex">#000000</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="palette-section">
+                    <h2>Complementar</h2>
+                    <p class="palette-desc">Cores opostas no círculo cromático.</p>
+                    <div class="palette" id="palette-complementary"></div>
+                </div>
+
+                <div class="palette-section">
+                    <h2>Análogo</h2>
+                    <p class="palette-desc">Cores vizinhas na roda cromática.</p>
+                    <div class="palette" id="palette-analogous"></div>
+                </div>
+
+                <div class="palette-section">
+                    <h2>Monocromático</h2>
+                    <p class="palette-desc">Diferentes tons da mesma cor.</p>
+                    <div class="palette" id="palette-monochromatic"></div>
+                </div>
+
+                <div class="palette-section">
+                    <h2>Triádico</h2>
+                    <p class="palette-desc">Três cores equidistantes na roda.</p>
+                    <div class="palette" id="palette-triadic"></div>
+                </div>
+
+            </div>
+
+            <!--Coluna direita: esfera-->
+            <div class="col-sphere">
+                <div class="scene">
+                    <div id="sphere"></div>
+                    <div id="colorshadow"></div>
+                </div>
+            </div>
+
         </div>
-        <br>
-        <select id="material">
-            <option value="plastic">Plástico</option>
-            <option value="metal">Metal</option>
-            <option value="rough">Rugoso</option>
-            <option value="fabric">Tecido</option>
-        </select>
 
-        <div class="scene">
-            <div id="sphere"></div>
-            <div id="colorshadow"></div>
-        </div>
+        <div id="toast">Copiado!</div>
 
         <script src="scripts/main.js"></script>
     </body>
