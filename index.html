@@ -26,22 +26,46 @@
             <div class="col-palettes">
 
                 <div class="palette-section">
+                    <h2>Monocromático</h2>
+                    <p class="palette-desc">Diferentes tons da mesma cor.</p>
+                    <div class="palette" id="palette-monochromatic"></div>
+                </div>
+
+                <div class="palette-section">
+                    <h2>Análogo</h2>
+                    <p class="palette-desc">Cores vizinhas na roda cromática.</p>
+                    <div class="palette" id="palette-analogous"></div>
+                </div>
+
+                <div class="palette-section">
+                    <h2>Complementar</h2>
+                    <p class="palette-desc">Cores opostas no círculo cromático.</p>
+                    <div class="palette" id="palette-complementary"></div>
+                </div>
+
+                <div class="palette-section">
+                    <h2>Triádico</h2>
+                    <p class="palette-desc">Três cores equidistantes na roda.</p>
+                    <div class="palette" id="palette-triadic"></div>
+                </div>
+
+                <div class="palette-section">
                     <h2>Luz &amp; Sombra</h2>
                     <p class="palette-desc">Variações de brilho e escuridão da cor base.</p>
                     <div class="ls-sliders">
                         <div class="slider-row">
-                            <label>Matiz</label>
-                            <div class="slider-track hue-track">
-                                <input type="range" id="hueShiftSlider" min="-10" max="10" step="0.1" value="1.0">
+                            <label>Intensidade</label>
+                            <div class="slider-track intensity-track">
+                                <input type="range" id="intensitySlider" min="0.1" max="1.0" step="0.01" value="0.55">
                             </div>
-                            <span class="slider-val" id="hueShiftVal">+1.0×</span>
+                            <span class="slider-val" id="intensityVal">0.55</span>
                         </div>
                         <div class="slider-row">
-                            <label>Saturação</label>
-                            <div class="slider-track sat-track">
-                                <input type="range" id="satShiftSlider" min="-10" max="10" step="0.1" value="1.0">
+                            <label>Cor da luz</label>
+                            <div class="slider-track lightcolor-track">
+                                <input type="range" id="lightColorSlider" min="-1" max="1" step="0.01" value="0">
                             </div>
-                            <span class="slider-val" id="satShiftVal">+1.0×</span>
+                            <span class="slider-val" id="lightColorVal">neutro</span>
                         </div>
                     </div>
                     <div class="palette">
@@ -62,34 +86,21 @@
                         </div>
                         <div class="color-card">
                             <div class="box" id="deepShadow"></div>
-                            <span class="color-name">Sombra Profunda</span>
+                            <span class="color-name">Umbra</span>
                             <span class="hex-label" id="deepShadow-hex">#000000</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="palette-section">
-                    <h2>Complementar</h2>
-                    <p class="palette-desc">Cores opostas no círculo cromático.</p>
-                    <div class="palette" id="palette-complementary"></div>
-                </div>
-
-                <div class="palette-section">
-                    <h2>Análogo</h2>
-                    <p class="palette-desc">Cores vizinhas na roda cromática.</p>
-                    <div class="palette" id="palette-analogous"></div>
-                </div>
-
-                <div class="palette-section">
-                    <h2>Monocromático</h2>
-                    <p class="palette-desc">Diferentes tons da mesma cor.</p>
-                    <div class="palette" id="palette-monochromatic"></div>
-                </div>
-
-                <div class="palette-section">
-                    <h2>Triádico</h2>
-                    <p class="palette-desc">Três cores equidistantes na roda.</p>
-                    <div class="palette" id="palette-triadic"></div>
+                    <h2>Regra 60-30-10</h2>
+                    <p class="palette-desc">Equilíbrio visual: dominante · secundária · destaque.</p>
+                    <div class="rule631-bar" id="rule631-bar">
+                        <div class="rule631-segment" id="rule631-60" title="60% — Cor dominante"></div>
+                        <div class="rule631-segment" id="rule631-30" title="30% — Cor secundária"></div>
+                        <div class="rule631-segment" id="rule631-10" title="10% — Cor de destaque"></div>
+                    </div>
+                    <div class="palette" id="palette-631"></div>
                 </div>
 
             </div>
